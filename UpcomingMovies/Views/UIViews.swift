@@ -20,14 +20,18 @@ extension UIView {
         parentView.addSubview(alertView)
         return alertView
     }
-    static func getSquareUIView(frame: CGRect)->UIView{
+    static func getSquareUIView(parentView: UIView ,frame: CGRect)->UIView{
         let myView = UIView(frame: frame)
         myView.backgroundColor = .clear
         myView.layer.cornerRadius = 20.0
+       myView.layer.borderWidth = 2
+        myView.layer.borderColor = UIColor.gray.cgColor
         myView.layer.shadowColor = UIColor.gray.cgColor
         myView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         myView.layer.shadowRadius = 12.0
         myView.layer.shadowOpacity = 0.7
+        parentView.addSubview(myView)
+        ConstraintView.shared.setUpConstraints(ParentView: parentView, childView: myView, topAnchor: 10.0, leadingAnchor: 25.0, trailingAnchor: -25.0, bottomAnchor: -10.0)
         return myView
     }
 }

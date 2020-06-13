@@ -1,0 +1,6 @@
+module Pods_UpcomingMovies_UpcomingMoviesUITests {
+  umbrella header "Pods-UpcomingMovies-UpcomingMoviesUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

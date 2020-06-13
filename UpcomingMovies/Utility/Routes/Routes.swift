@@ -10,4 +10,8 @@ import Foundation
 
 class Routes{
     static let UPCOMING_MOVIES_ROUTE = "movie/upcoming?"
+    static let VIDEO_ROUTE = "/videos?"
+    static let MOVIE_CONTENT_TYPE = "movie/"
+     static let YOUTUBE_VIDEO_URL = "https://www.youtube.com/watch?v="
 }
+
