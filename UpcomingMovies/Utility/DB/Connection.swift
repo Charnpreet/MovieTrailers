@@ -25,4 +25,9 @@ class Connection {
         let url = URL(string: urlString) ?? nil
         return url
     }
+    static func BuildVideoAPIEndPoint(route: String, content_Type: String, content_ID: Int) -> URL? {
+        let urlString = "\(API_BASE_URL)\(content_Type)\(content_ID)\(route)\(API_KEY_PATH)"
+        let url = URL(string: urlString) ?? nil
+        return url
+    }
 }

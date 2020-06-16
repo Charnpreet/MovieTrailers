@@ -43,7 +43,7 @@ class DBAcess{
                 guard let data = data else { return }
                 DispatchQueue.main.async {
                     guard  let image = UIImage(data: data) else{
-                        return completionHandler(UIImage(named: "img1")!)
+                        return completionHandler(UIImage())
                     }
                     completionHandler(image)
                 }
@@ -55,16 +55,16 @@ class DBAcess{
     }
     
     
-    static func LoadPosterImages(textLabel: UILabel, cellImage : UIImageView, pPath: String?, text : String){
+    static func LoadPosterImages(cellImage : UIImageView, pPath: String?){
         guard let posterPath = pPath else {
-            textLabel.text = text
+            cellImage.image = UIImage()
             return
-            
+
         }
         let urlString = "\(Connection.IMGAE_BASE_URL)\(posterPath)"
         
         guard let url = URL(string: urlString ) else {
-            textLabel.text = text
+            cellImage.image = UIImage()
             return
             
         }
@@ -73,4 +73,25 @@ class DBAcess{
         })
         
     }
+    public func getVideoURL <T:Decodable>(url: URL ,completionHandler:@escaping(T)->Void){
+           let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+               if (error != nil){
+                   print ("error")
+               }else{
+                   do{
+                       guard let data = data else { return }
+                       let deocder = JSONDecoder()
+                       deocder.keyDecodingStrategy = .convertFromSnakeCase
+                       let content = try JSONDecoder().decode(T.self, from: data)
+                       DispatchQueue.main.async {
+                           completionHandler(content)
+                       }
+                   } catch{
+                       print(error)
+                   }
+                   
+               }
+           }
+           task.resume()
+       }
 }

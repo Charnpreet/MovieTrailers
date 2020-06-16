@@ -19,6 +19,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.navigationBar.backgroundColor = .clear
         loadUpcomingMovies(pageNO: 1, completionHandler: {(loaded) in
             if(loaded){
                 print(self.itemList.count)
@@ -36,7 +37,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
         let camera =  UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(LoadSettingsVC))
         self.navigationItem.rightBarButtonItem = camera
         self.title = "Movies"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        //navigationController?.navigationBar.prefersLargeTitles = true
         //navigationItem.largeTitleDisplayMode = .never
     }
     @objc func LoadSettingsVC(){
@@ -44,17 +45,20 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
         self.navigationController?.pushViewController(settingVC, animated:true)
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableView.rowHeight = 400
+        tableView.rowHeight = 500
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailVC = DetailVC<MoviesDetails>(backgroundColorService: backgroundColorService, constant: constant, nServie: networkServie, db: db)
-        detailVC.item = itemList[indexPath.row]
-        DBAcess.LoadPosterImages(textLabel: UILabel(), cellImage: detailVC.imageView, pPath: itemList[indexPath.row].poster_path, text: "")
+        let cell = super.tableView(tableView, cellForRowAt: indexPath) as! TableCell
+        let itm = itemList[indexPath.row]
+        let detailVC = DetailVC<MoviesDetails>(backgroundColorService: backgroundColorService, constant: constant, nServie: networkServie, db: db, item: itm, UIImage: cell.cellImageView.image)
         LoadSegus(vc: detailVC)
     }
+    
+    
+    
     func loadUpcomingMovies(pageNO: Int, completionHandler:@escaping(Bool)->Void){
         let url = Connection.BuildAPIEndPoint(route: Routes.UPCOMING_MOVIES_ROUTE, pageNo: pageNO)
         guard let newUrl = url else {return}
