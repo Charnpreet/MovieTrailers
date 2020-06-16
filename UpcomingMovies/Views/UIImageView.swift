@@ -21,12 +21,13 @@ extension UIImageView {
         myImage.layer.masksToBounds = true
         myImage.contentMode = .scaleAspectFill
         ParentView.addSubview(myImage)
-        ConstraintView.shared.setUpConstraints(ParentView: ParentView, childView: myImage, topAnchor:topAnchor, leadingAnchor: leadingAnchor, trailingAnchor: trailingAnchor, bottomAnchor: bottomAnchor)
+        ConstraintView.shared.setUpConstraints(ParentView: ParentView, childView: myImage, topAnchor:topAnchor, leadingAnchor: leadingAnchor, trailingAnchor: -trailingAnchor, bottomAnchor: -bottomAnchor)
         return myImage
     }
     static func getImageVIew(ParentView: UIView)->UIImageView{
         let myImage = UIImageView(frame: .zero)
-             ParentView.addSubview(myImage)
+        myImage.contentMode = .scaleAspectFill
+         ParentView.addSubview(myImage)
         return myImage
     }
 
