@@ -13,6 +13,7 @@ class SettingsCell : BaseCEll<String>{
                didSet{
                 let labelText = item
                 self.textLabel?.text = labelText
+                self.detailTextLabel?.text = "ji"
                }
            }
 }

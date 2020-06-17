@@ -19,8 +19,8 @@ class DBAcess{
             }else{
                 do{
                     guard let data = data else { return }
-                    let deocder = JSONDecoder()
-                    deocder.keyDecodingStrategy = .convertFromSnakeCase
+                    //let deocder = JSONDecoder()
+                   // deocder.keyDecodingStrategy = .convertFromSnakeCase
                     let movies = try JSONDecoder().decode(T.self, from: data)
                     DispatchQueue.main.async {
                         completionHandler(movies, nil)

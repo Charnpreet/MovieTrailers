@@ -8,18 +8,34 @@
 
 import UIKit
 
-class LocationVC: MainVCWithTableView<SettingsCell, String> {
+class LocationVC: MainVCWithTableView<LocationCell, Locations> {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        itemList.append("Locations will be retreived from db")
-//
+        loadLocations(completionHandler: {(loaded) in
+            if(loaded){
+                self.tableView.reloadData()
+            }
+        })
     }
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-//        return cell
-//    }
-//override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("000000---------")
+    
+    func loadLocations(completionHandler:@escaping(Bool)->Void){
+        let url = Connection.BuildLocationAPIEndPoint(route: Routes.LOCATION)
+        guard let newUrl = url else {return}
+        db.LoadContentFromDB(url: newUrl, completionHandler: { (locations: [Locations]?, err) in
+            if let err = err {
+                print(err)
+                completionHandler(false)
+            } else{
+                guard let locations = locations else{return}
+                self.itemList.append(contentsOf: locations.map({$0}))
+                completionHandler(true)
+                
+            }
+        })
+    }
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        let cell =   tableView.cellForRow(at: indexPath)
+//        cell?.accessoryType = .checkmark
 //    }
 }

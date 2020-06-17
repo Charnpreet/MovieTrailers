@@ -47,6 +47,9 @@
 		A6931A862497142500E6342D /* RootViewLayoutConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6931A852497142500E6342D /* RootViewLayoutConstraints.swift */; };
 		A6C90C752491D5E6001EA82F /* ConstraintView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C90C742491D5E6001EA82F /* ConstraintView.swift */; };
 		A6C90C772491DD4A001EA82F /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6C90C762491DD4A001EA82F /* UILabel.swift */; };
+		A6F085402499B86F00FFB397 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F0853F2499B86F00FFB397 /* Location.swift */; };
+		A6F085442499BAE400FFB397 /* Locations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F085432499BAE400FFB397 /* Locations.swift */; };
+		A6F085462499BC5C00FFB397 /* LocationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6F085452499BC5C00FFB397 /* LocationCell.swift */; };
 		DA80300A50CA46AE58F31EAB /* libPods-UpcomingMovies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CC8A4B1E18666CCC4A9EB1BC /* libPods-UpcomingMovies.a */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +121,9 @@
 		A6931A852497142500E6342D /* RootViewLayoutConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewLayoutConstraints.swift; sourceTree = "<group>"; };
 		A6C90C742491D5E6001EA82F /* ConstraintView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstraintView.swift; sourceTree = "<group>"; };
 		A6C90C762491DD4A001EA82F /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		A6F0853F2499B86F00FFB397 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		A6F085432499BAE400FFB397 /* Locations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Locations.swift; sourceTree = "<group>"; };
+		A6F085452499BC5C00FFB397 /* LocationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationCell.swift; sourceTree = "<group>"; };
 		CC8A4B1E18666CCC4A9EB1BC /* libPods-UpcomingMovies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UpcomingMovies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F28783F41E88FE9620F1832B /* libPods-UpcomingMovies-UpcomingMoviesUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-UpcomingMovies-UpcomingMoviesUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FE9A64F5256CA8B982B8BEF6 /* Pods-UpcomingMoviesTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpcomingMoviesTests.release.xcconfig"; path = "Target Support Files/Pods-UpcomingMoviesTests/Pods-UpcomingMoviesTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -495,6 +501,7 @@
 		A6931A7B2497070900E6342D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A6F085452499BC5C00FFB397 /* LocationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -502,6 +509,7 @@
 		A6931A7C2497070E00E6342D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				A6F085432499BAE400FFB397 /* Locations.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -517,6 +525,7 @@
 		A6931A7E2497071900E6342D /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				A6F0853F2499B86F00FFB397 /* Location.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -789,11 +798,13 @@
 				A6807792248F47970006A329 /* Routes.swift in Sources */,
 				A685A9BB248E7ACA00906FFD /* TableView.swift in Sources */,
 				A6918B3A248E86E400165FFD /* Constants.swift in Sources */,
+				A6F085462499BC5C00FFB397 /* LocationCell.swift in Sources */,
 				A6807794248F48360006A329 /* DBAcess.swift in Sources */,
 				A680778A248F3DE90006A329 /* LocationVC.swift in Sources */,
 				A6876BA0249072EA0039231A /* UIButton.swift in Sources */,
 				A660AA922493793200114EC9 /* ActivityIndicator.swift in Sources */,
 				A660292A2494C711002D8DF7 /* MediaPlayerView.swift in Sources */,
+				A6F085442499BAE400FFB397 /* Locations.swift in Sources */,
 				A6931A812497089E00E6342D /* TableCell.swift in Sources */,
 				A685A989248E76AA00906FFD /* BaseVCForAll.swift in Sources */,
 				A685A985248E76AA00906FFD /* AppDelegate.swift in Sources */,
@@ -803,6 +814,7 @@
 				A60E6741248E9ABC00F04C77 /* UISwitch.swift in Sources */,
 				A6648542248F1AC300F4345C /* Movies.swift in Sources */,
 				A6931A652496FE1600E6342D /* YouTubePlayerNotifer.swift in Sources */,
+				A6F085402499B86F00FFB397 /* Location.swift in Sources */,
 				A61A5C4A249119C900B90148 /* RatingCircle.swift in Sources */,
 				A65F8045248F5DF800723C45 /* UIImageView.swift in Sources */,
 				A685A987248E76AA00906FFD /* SceneDelegate.swift in Sources */,
