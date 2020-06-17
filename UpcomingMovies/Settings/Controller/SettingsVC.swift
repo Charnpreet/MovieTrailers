@@ -12,7 +12,7 @@ class SettingsVC: MainVCWithTableView<SettingsCell, String> {
     private let usrDefualts = UserDefaults.standard
     var uiSWitch : UISwitch?
     override init(backgroundColorService: BackgroundColor, constant: Constants, nServie: NetworkService, db: DBAcess) {
-           super.init(backgroundColorService: backgroundColorService, constant: constant, nServie: nServie, db: db)
+        super.init(backgroundColorService: backgroundColorService, constant: constant, nServie: nServie, db: db)
     }
     
     required init?(coder: NSCoder) {
@@ -23,7 +23,7 @@ class SettingsVC: MainVCWithTableView<SettingsCell, String> {
         self.navigationController?.navigationBar.prefersLargeTitles = true
         uiSWitch = setupUISwitch()
         self.itemList.append("Dark Mode")
-         self.itemList.append("Location")
+        self.itemList.append("Location")
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -34,19 +34,20 @@ class SettingsVC: MainVCWithTableView<SettingsCell, String> {
         let cell = super.tableView(tableView, cellForRowAt: indexPath)
         guard  let uiSWitch = uiSWitch else{return cell}
         if(indexPath.row==0){
-          cell.addSubview(uiSWitch)
+            cell.addSubview(uiSWitch)
+            setupConstraintsForUISwitch(parentView: cell.contentView, uiSwitchView: uiSWitch)
         }
         if(indexPath.row==1){
             cell.accessoryType = .disclosureIndicator
         }
         return cell
     }
- 
-   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let lC = LocationVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db: db)
-    if(indexPath.row==1){
-               LoadSegus(vc: lC)
-    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let lC = LocationVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db: db)
+        if(indexPath.row==1){
+            LoadSegus(vc: lC)
+        }
     }
     private func setupUISwitch()-> UISwitch{
         let uiSWitch =  UISwitch.getUISwitch(parentView: self.view, frame: .zero)
@@ -64,5 +65,16 @@ class SettingsVC: MainVCWithTableView<SettingsCell, String> {
         }
         tableView.reloadData()
         viewWillAppear(true)
+    }
+    func setupConstraintsForUISwitch(parentView: UIView, uiSwitchView: UIView){
+        let width = (uiSWitch?.layer.bounds.width ?? 51) + 10
+        
+        uiSwitchView.translatesAutoresizingMaskIntoConstraints = false
+        uiSwitchView.topAnchor.constraint(equalTo: parentView.topAnchor, constant: 5).isActive = true
+        uiSwitchView.leadingAnchor.constraint(equalTo: parentView.leadingAnchor, constant: constant.IOS_SCREEN_WIDTH - width).isActive = true
+        uiSwitchView.trailingAnchor.constraint(equalTo: parentView.trailingAnchor, constant: -10).isActive = true
+        uiSwitchView.bottomAnchor.constraint(equalTo: parentView.bottomAnchor, constant: -5).isActive = true
+        
+        
     }
 }
