@@ -34,8 +34,8 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     }
     
     private func setupNaviagtionController(){
-        let camera =  UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(LoadSettingsVC))
-        self.navigationItem.rightBarButtonItem = camera
+        let settings =  UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(LoadSettingsVC))
+        self.navigationItem.rightBarButtonItem = settings
         self.title = "Movies"
         //navigationController?.navigationBar.prefersLargeTitles = true
         //navigationItem.largeTitleDisplayMode = .never

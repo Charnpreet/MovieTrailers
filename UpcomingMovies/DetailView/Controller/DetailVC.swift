@@ -33,6 +33,7 @@ class DetailVC<T>: BaseVCForAll, YouTubePlayerDelegate, YouTubePlayerNotifer {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         ClearNavigationBar()
+        clearNavigationBarBackItemtitle()
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -46,6 +47,9 @@ class DetailVC<T>: BaseVCForAll, YouTubePlayerDelegate, YouTubePlayerNotifer {
         self.navigationController?.navigationBar.backgroundColor = .clear
     }
     
+    fileprivate func clearNavigationBarBackItemtitle(){
+        self.navigationController?.navigationBar.topItem?.title = ""
+    }
     func loadVideos<T>(item : T){
         if(type(of: item)==MoviesDetails.self){
             let anItem = item as! MoviesDetails
