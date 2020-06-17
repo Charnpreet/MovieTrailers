@@ -44,7 +44,9 @@ class SettingsVC: MainVCWithTableView<SettingsCell, String> {
  
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let lC = LocationVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db: db)
-       LoadSegus(vc: lC)
+    if(indexPath.row==1){
+               LoadSegus(vc: lC)
+    }
     }
     private func setupUISwitch()-> UISwitch{
         let uiSWitch =  UISwitch.getUISwitch(parentView: self.view, frame: .zero)
