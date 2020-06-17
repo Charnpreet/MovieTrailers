@@ -53,7 +53,8 @@ class MainVCWithTableView<U: BaseCEll<T>, T>: BaseVCForAll, UITableViewDataSourc
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
     }
-    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+       }
     func LoadSegus(vc: UIViewController){
         self.navigationController?.pushViewController(vc, animated: true)
     }
