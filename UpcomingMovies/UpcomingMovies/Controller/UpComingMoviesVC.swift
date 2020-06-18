@@ -29,7 +29,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
         loadUpcomingMovies(pageNO: pageNo, completionHandler: {(loaded) in
             if(loaded){
                 self.tableView.reloadData()
-                self.animateMoviesAlertView()
+                self.animateView()
             }
         })
     }
@@ -44,7 +44,15 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
             loadMovies(pageNo: 1)
         }
     }
-    
+    private func animateView(){
+        let usrDefualts = UserDefaults.standard
+        let loc = usrDefualts.string(forKey: "location")
+        var txt = "Now Showing Movies Releasing in \(loc ?? "")"
+        if(itemList.count<1){
+            txt = "No New Movies Releasing in \(loc ?? "")"
+        }
+        animateMoviesAlertView(txt: txt)
+    }
     private func setupNaviagtionController(){
         let settings =  UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(LoadSettingsVC))
         self.navigationItem.rightBarButtonItem = settings
@@ -93,32 +101,6 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
                 completionHandler(true)
                 
             }
-        })
-    }
-    
-    func animateMoviesAlertView(){
-         let usrDefualts = UserDefaults.standard
-        let loc = usrDefualts.string(forKey: "location")
-        var txt = "now showing movies in \(loc ?? "")"
-        if(itemList.count<1){
-          txt = "no  new Movies Realsing in \(loc ?? "")"
-        }
-        let moviesAlertView = UIView.getAlertView(parentView: self.view, frame: .zero, txtclr: backgroundColorService.gettxtClr(), txtToDisplay: txt)
-        moviesAlertView.translatesAutoresizingMaskIntoConstraints = false
-        moviesAlertView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
-        moviesAlertView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 1).isActive = true
-        moviesAlertView.trailingAnchor.constraint(equalTo:  self.view.trailingAnchor, constant: -1).isActive = true
-        moviesAlertView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        moviesAlertView.backgroundColor = .red
-        self.view.bringSubviewToFront(moviesAlertView)
-        UIView.animate(withDuration: 0.6, delay: 0.0, options: .curveLinear, animations: {
-            moviesAlertView.center.y += 100
-        }, completion:{
-            _ in UIView.animate(withDuration: 0.6, delay: 2.6, options: .curveEaseInOut, animations: {
-                moviesAlertView.center.y -= 100
-            }, completion: { _ in
-                moviesAlertView.removeFromSuperview()
-            })
         })
     }
 }

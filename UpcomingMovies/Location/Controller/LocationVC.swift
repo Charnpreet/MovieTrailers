@@ -72,7 +72,8 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations>{
 }
 extension LocationVC : LocationUpdated{
     func isLocationUpdated() -> Bool {
-        return locationChaged
+        let result = locationChaged
+        return result
     }
     
     
