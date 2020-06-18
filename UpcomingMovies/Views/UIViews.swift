@@ -9,7 +9,6 @@
 import UIKit
 
 extension UIView {
-    
     static func getAlertView(parentView: UIView, frame: CGRect, txtclr: UIColor, txtToDisplay: String) -> UIView {
         let alertView = UIView(frame: frame)
         let label = UILabel(frame: frame)
@@ -24,7 +23,7 @@ extension UIView {
         let myView = UIView(frame: frame)
         myView.backgroundColor = .clear
         myView.layer.cornerRadius = 20.0
-       myView.layer.borderWidth = 2
+        myView.layer.borderWidth = 2
         myView.layer.borderColor = UIColor.gray.cgColor
         myView.layer.shadowColor = UIColor.gray.cgColor
         myView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
