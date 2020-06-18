@@ -14,7 +14,6 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     var settingVC : SettingsVC?
     override init(backgroundColorService: BackgroundColor, constant: Constants, nServie: NetworkService, db: DBAcess) {
         super.init(backgroundColorService: backgroundColorService, constant: constant, nServie: nServie, db: db)
-        settingVC = SettingsVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db:db)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -22,6 +21,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = .black
         loadMovies(pageNo: 1)
         // Do any additional setup after loading the view.
     }
@@ -41,6 +41,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
             if(itemList.count>0 ){
                 itemList.removeAll()
             }
+            self.settingVC = nil
             loadMovies(pageNo: 1)
         }
     }
@@ -59,6 +60,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
         self.title = "Movies"
     }
     @objc func LoadSettingsVC(){
+        settingVC = SettingsVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db:db)
         guard let settingVC = settingVC else {return}
         self.navigationController?.pushViewController(settingVC, animated:true)
     }

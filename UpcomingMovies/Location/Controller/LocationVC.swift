@@ -66,7 +66,7 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations>{
     }
     private func saveLocation(value: String?){
         usrDefualts.set(value, forKey: "location")
-        locationChaged = true
+       locationChaged = true
     }
 
 }
