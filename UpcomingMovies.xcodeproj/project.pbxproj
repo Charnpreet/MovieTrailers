@@ -11,6 +11,7 @@
 		752A062DB3E204EC9384D028 /* libPods-UpcomingMovies-UpcomingMoviesUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F28783F41E88FE9620F1832B /* libPods-UpcomingMovies-UpcomingMoviesUITests.a */; };
 		A60E6741248E9ABC00F04C77 /* UISwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = A60E6740248E9ABC00F04C77 /* UISwitch.swift */; };
 		A61A5C4A249119C900B90148 /* RatingCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A61A5C49249119C900B90148 /* RatingCircle.swift */; };
+		A6240262249A6DB1009C8BBC /* SelectedValueProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6240261249A6DB1009C8BBC /* SelectedValueProtocol.swift */; };
 		A65F8045248F5DF800723C45 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65F8044248F5DF800723C45 /* UIImageView.swift */; };
 		A65F8047248F648400723C45 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = A65F8046248F648400723C45 /* DetailVC.swift */; };
 		A660292A2494C711002D8DF7 /* MediaPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A66029292494C711002D8DF7 /* MediaPlayerView.swift */; };
@@ -79,6 +80,7 @@
 		59C03913AF46F53FA0876639 /* Pods-UpcomingMovies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-UpcomingMovies.release.xcconfig"; path = "Target Support Files/Pods-UpcomingMovies/Pods-UpcomingMovies.release.xcconfig"; sourceTree = "<group>"; };
 		A60E6740248E9ABC00F04C77 /* UISwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UISwitch.swift; sourceTree = "<group>"; };
 		A61A5C49249119C900B90148 /* RatingCircle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingCircle.swift; sourceTree = "<group>"; };
+		A6240261249A6DB1009C8BBC /* SelectedValueProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedValueProtocol.swift; sourceTree = "<group>"; };
 		A65F8044248F5DF800723C45 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		A65F8046248F648400723C45 /* DetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		A66029292494C711002D8DF7 /* MediaPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPlayerView.swift; sourceTree = "<group>"; };
@@ -178,6 +180,14 @@
 				4F192A672235F7C996F4CAA5 /* libPods-UpcomingMoviesTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A6240260249A6D9C009C8BBC /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				A6240261249A6DB1009C8BBC /* SelectedValueProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		A6648543248F1B8500F4345C /* UITable */ = {
@@ -490,6 +500,7 @@
 		A6931A7A2497070100E6342D /* Location */ = {
 			isa = PBXGroup;
 			children = (
+				A6240260249A6D9C009C8BBC /* Protocol */,
 				A6931A7E2497071900E6342D /* Networking */,
 				A6931A7D2497071200E6342D /* Controller */,
 				A6931A7C2497070E00E6342D /* Model */,
@@ -793,6 +804,7 @@
 				A66AC3D72492531E0049D295 /* VideoResponse.swift in Sources */,
 				A6918B3C248E954A00165FFD /* MainVC.swift in Sources */,
 				A6876BA2249080690039231A /* UIALert.swift in Sources */,
+				A6240262249A6DB1009C8BBC /* SelectedValueProtocol.swift in Sources */,
 				A6807784248F2B700006A329 /* SettingsVC.swift in Sources */,
 				A6648545248F1B9F00F4345C /* UITableViewCell.swift in Sources */,
 				A6807792248F47970006A329 /* Routes.swift in Sources */,
@@ -990,6 +1002,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 274FU8ZBEU;
 				INFOPLIST_FILE = UpcomingMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1009,6 +1022,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 274FU8ZBEU;
 				INFOPLIST_FILE = UpcomingMovies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

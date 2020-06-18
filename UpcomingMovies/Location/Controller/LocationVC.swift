@@ -8,11 +8,15 @@
 
 import UIKit
 
-class LocationVC: MainVCWithTableView<LocationCell, Locations> {
+class LocationVC: MainVCWithTableView<LocationCell, Locations>{
     var selectedCell : IndexPath?
     var selectedValue : String?
+    var locationChaged = false
+    var delegate: LocationUpdated?
+    private let usrDefualts = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate = self
         loadLocations(completionHandler: {(loaded) in
             if(loaded){
                 self.tableView.reloadData()
@@ -35,12 +39,12 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations> {
             }
         })
     }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell =   tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
         selectedCell = indexPath
         selectedValue = itemList[indexPath.row].iso_3166_1
+        saveLocation(value: selectedValue)
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell =   tableView.cellForRow(at: indexPath)
@@ -60,4 +64,16 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations> {
         }
         return cell
     }
+    private func saveLocation(value: String?){
+        usrDefualts.set(value, forKey: "location")
+        locationChaged = true
+    }
+
+}
+extension LocationVC : LocationUpdated{
+    func isLocationUpdated() -> Bool {
+        return locationChaged
+    }
+    
+    
 }
