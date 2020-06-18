@@ -9,14 +9,19 @@
 import UIKit
 
 class LocationVC: MainVCWithTableView<LocationCell, Locations>{
-    var selectedCell : IndexPath?
     var selectedValue : String?
     var locationChaged = false
-    var delegate: LocationUpdated?
+    var delegate: LocationUpdated!
+    var searchController : UISearchController?
+    var filterArray:[Locations] = []
     private let usrDefualts = UserDefaults.standard
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate = self
+        searchController = UISearchController(searchResultsController: nil)
+        searchController?.searchResultsUpdater = self
+        searchController?.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
         loadLocations(completionHandler: {(loaded) in
             if(loaded){
                 self.tableView.reloadData()
@@ -24,6 +29,9 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations>{
         })
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
     func loadLocations(completionHandler:@escaping(Bool)->Void){
         let url = Connection.BuildLocationAPIEndPoint(route: Routes.LOCATION)
         guard let newUrl = url else {return}
@@ -39,12 +47,32 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations>{
             }
         })
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let noOfRows = super.tableView(tableView, numberOfRowsInSection: section)
+        guard let searchController = searchController else {
+            return noOfRows
+        }
+        if(searchController.searchBar.searchTextField.isEditing){
+            return filterArray.count
+        }
+        return noOfRows
+    }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell =   tableView.cellForRow(at: indexPath)
         cell?.accessoryType = .checkmark
-        selectedCell = indexPath
-        selectedValue = itemList[indexPath.row].iso_3166_1
-        saveLocation(value: selectedValue)
+        guard let searchController = searchController else {
+            selectedValue = itemList[indexPath.row].iso_3166_1
+            saveLocation(value: selectedValue)
+            return
+        }
+        if(searchController.searchBar.searchTextField.isEditing && filterArray.count>0){
+            selectedValue = filterArray[indexPath.row].iso_3166_1
+            saveLocation(value: selectedValue)
+        }else{
+            selectedValue = itemList[indexPath.row].iso_3166_1
+            saveLocation(value: selectedValue)
+        }
     }
     override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let cell =   tableView.cellForRow(at: indexPath)
@@ -52,23 +80,33 @@ class LocationVC: MainVCWithTableView<LocationCell, Locations>{
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = super.tableView(tableView, cellForRowAt: indexPath)
-        guard let selectCell = selectedCell else {return cell}
-        
-        
-        if(selectCell == indexPath){
+        let cell: LocationCell = super.tableView(tableView, cellForRowAt: indexPath) as! LocationCell
+        if(itemList[indexPath.row].iso_3166_1==selectedValue){
             cell.accessoryType = .checkmark
-            
         }else{
             cell.accessoryType = .none
+        }
+        
+        guard let searchController = searchController else {
+            return cell
+        }
+        if(searchController.searchBar.searchTextField.isEditing && filterArray.count>0) {
+            if(filterArray[indexPath.row].iso_3166_1==selectedValue){
+                cell.accessoryType = .checkmark
+            }else{
+                cell.accessoryType = .none
+            }
+        }
+        if(searchController.searchBar.searchTextField.isEditing && filterArray.count>0) {
+            cell.item  = filterArray[indexPath.row]
         }
         return cell
     }
     private func saveLocation(value: String?){
         usrDefualts.set(value, forKey: "location")
-       locationChaged = true
+        locationChaged = true
     }
-
+    
 }
 extension LocationVC : LocationUpdated{
     func isLocationUpdated() -> Bool {
@@ -77,4 +115,15 @@ extension LocationVC : LocationUpdated{
     }
     
     
+}
+extension LocationVC : UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let txt = searchController.searchBar.text else {return}
+        filterArray = itemList.filter{
+            $0.english_name.contains(txt)
+            
+        }
+        print(txt)
+        tableView.reloadData()
+    }
 }

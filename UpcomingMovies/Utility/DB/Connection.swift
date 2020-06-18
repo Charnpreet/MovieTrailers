@@ -12,7 +12,7 @@ class Connection {
     private static let usrDefualts = UserDefaults.standard
     private static let  IMAGE_URL_BASE_PATH = "https://image.tmdb.org/t/p/w342//"
     private static let  API_BASE_URL = "https://api.themoviedb.org/3/"
-    private static let  API_KEY = "0d9396afae9f4fe7bae0ce653bbee985"
+    private static let  API_KEY = ""
     private static let API_KEY_PATH = "api_key=\(API_KEY)"
     private static let PAGE = "&page="
     private static let  REGION = "&region="
