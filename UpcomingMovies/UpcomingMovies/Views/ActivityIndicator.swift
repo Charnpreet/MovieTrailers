@@ -12,7 +12,7 @@ extension UIActivityIndicatorView {
     static func getActivityIndicator()->UIActivityIndicatorView{
         let aC = UIActivityIndicatorView(frame:  .zero)
         aC.hidesWhenStopped = true
-        aC.style = .large
+        aC.style = .medium
         aC.color = .white
         let transfrom = CGAffineTransform.init(scaleX: 1.5, y: 1.5)
         aC.transform = transfrom

@@ -12,10 +12,16 @@ extension UIView {
     static func getAlertView(parentView: UIView, frame: CGRect, txtclr: UIColor, txtToDisplay: String) -> UIView {
         let alertView = UIView(frame: frame)
         let label = UILabel(frame: frame)
+        label.layoutIfNeeded()
         label.textAlignment = .center
         label.textColor = txtclr
         label.text = txtToDisplay
         alertView.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints  = false
+        label.topAnchor.constraint(equalTo: alertView.topAnchor).isActive = true
+        label.leadingAnchor.constraint(equalTo: alertView.leadingAnchor).isActive = true
+        label.trailingAnchor.constraint(equalTo: alertView.trailingAnchor).isActive = true
+        label.bottomAnchor.constraint(equalTo: alertView.bottomAnchor).isActive = true
         parentView.addSubview(alertView)
         return alertView
     }
