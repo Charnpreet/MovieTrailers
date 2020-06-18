@@ -28,12 +28,9 @@ class BaseVCForAll: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initalSetup()
         networkServie.startMonitoring(completionHandler: {networkAvailble in
             if(!networkAvailble){
-                self.alertView?.isHidden = false
-            }else{
-                self.alertView?.isHidden = true
+                self.animateMoviesAlertView(txt: "no network avilable")
             }
         })
         // Do any additional setup after loading the view.
@@ -43,13 +40,24 @@ class BaseVCForAll: UIViewController {
         self.view.backgroundColor = backgroundColorService.getBGClr()
     }
     
-    private func initalSetup(){
-        setupAlertView()
-    }
-    private func setupAlertView(){
-        let frame = CGRect(x: 0, y: 0, width: constant.IOS_SCREEN_WIDTH, height: constant.IOS_SCREEN_WIDTH)
-        alertView = UIView.getAlertView(parentView: self.view, frame: frame, txtclr: backgroundColorService.gettxtClr(), txtToDisplay: "No Network Available")
-        alertView?.isHidden = true
+    func animateMoviesAlertView(txt: String){
+        let moviesAlertView = UIView.getAlertView(parentView: self.view, frame: .zero, txtclr: backgroundColorService.gettxtClr(), txtToDisplay: txt)
+        moviesAlertView.translatesAutoresizingMaskIntoConstraints = false
+        moviesAlertView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
+        moviesAlertView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 1).isActive = true
+        moviesAlertView.trailingAnchor.constraint(equalTo:  self.view.trailingAnchor, constant: -1).isActive = true
+        moviesAlertView.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        moviesAlertView.backgroundColor = .red
+        self.view.bringSubviewToFront(moviesAlertView)
+        UIView.animate(withDuration: 0.6, delay: 0.0, options: .curveLinear, animations: {
+            moviesAlertView.center.y += 100
+        }, completion:{
+            _ in UIView.animate(withDuration: 0.6, delay: 2.6, options: .curveEaseInOut, animations: {
+                moviesAlertView.center.y -= 100
+            }, completion: { _ in
+                moviesAlertView.removeFromSuperview()
+            })
+        })
     }
 }
 

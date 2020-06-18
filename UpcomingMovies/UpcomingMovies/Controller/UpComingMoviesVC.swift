@@ -14,7 +14,6 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     var settingVC : SettingsVC?
     override init(backgroundColorService: BackgroundColor, constant: Constants, nServie: NetworkService, db: DBAcess) {
         super.init(backgroundColorService: backgroundColorService, constant: constant, nServie: nServie, db: db)
-        settingVC = SettingsVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db:db)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -22,6 +21,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.navigationBar.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = .black
         loadMovies(pageNo: 1)
         // Do any additional setup after loading the view.
     }
@@ -29,7 +29,7 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
         loadUpcomingMovies(pageNO: pageNo, completionHandler: {(loaded) in
             if(loaded){
                 self.tableView.reloadData()
-                self.animateMoviesAlertView()
+                self.animateView()
             }
         })
     }
@@ -41,16 +41,26 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
             if(itemList.count>0 ){
                 itemList.removeAll()
             }
+            self.settingVC = nil
             loadMovies(pageNo: 1)
         }
     }
-    
+    private func animateView(){
+        let usrDefualts = UserDefaults.standard
+        let loc = usrDefualts.string(forKey: "location")
+        var txt = "Now Showing Movies Releasing in \(loc ?? "")"
+        if(itemList.count<1){
+            txt = "No New Movies Releasing in \(loc ?? "")"
+        }
+        animateMoviesAlertView(txt: txt)
+    }
     private func setupNaviagtionController(){
         let settings =  UIBarButtonItem(image: UIImage(named: "settings"), style: .plain, target: self, action: #selector(LoadSettingsVC))
         self.navigationItem.rightBarButtonItem = settings
         self.title = "Movies"
     }
     @objc func LoadSettingsVC(){
+        settingVC = SettingsVC(backgroundColorService: backgroundColorService, constant: self.constant, nServie: self.networkServie, db:db)
         guard let settingVC = settingVC else {return}
         self.navigationController?.pushViewController(settingVC, animated:true)
     }
@@ -93,32 +103,6 @@ class UpComingMoviesVC:  MainVCWithTableView<TableCell, MoviesDetails> {
                 completionHandler(true)
                 
             }
-        })
-    }
-    
-    func animateMoviesAlertView(){
-         let usrDefualts = UserDefaults.standard
-        let loc = usrDefualts.string(forKey: "location")
-        var txt = "now showing movies in \(loc ?? "")"
-        if(itemList.count<1){
-          txt = "no  new Movies Realsing in \(loc ?? "")"
-        }
-        let moviesAlertView = UIView.getAlertView(parentView: self.view, frame: .zero, txtclr: backgroundColorService.gettxtClr(), txtToDisplay: txt)
-        moviesAlertView.translatesAutoresizingMaskIntoConstraints = false
-        moviesAlertView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
-        moviesAlertView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 1).isActive = true
-        moviesAlertView.trailingAnchor.constraint(equalTo:  self.view.trailingAnchor, constant: -1).isActive = true
-        moviesAlertView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        moviesAlertView.backgroundColor = .red
-        self.view.bringSubviewToFront(moviesAlertView)
-        UIView.animate(withDuration: 0.6, delay: 0.0, options: .curveLinear, animations: {
-            moviesAlertView.center.y += 100
-        }, completion:{
-            _ in UIView.animate(withDuration: 0.6, delay: 2.6, options: .curveEaseInOut, animations: {
-                moviesAlertView.center.y -= 100
-            }, completion: { _ in
-                moviesAlertView.removeFromSuperview()
-            })
         })
     }
 }
